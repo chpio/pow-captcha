@@ -1,3 +1,8 @@
 packages:
-  - "pkgs/*"
-  - "pkgs/solver-wasm/dist"
+  - pkgs/*
+  - pkgs/solver-wasm/dist
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - unrs-resolver

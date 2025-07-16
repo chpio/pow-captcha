@@ -8,3 +8,4 @@
 /pkgs/solver-wasm/target/
 
 /pkgs/benchmark/.react-router/
+/pkgs/benchmark/build/

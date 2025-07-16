@@ -69,12 +69,9 @@ export async function solveChallenges({
 	console.log("workerChallenges", workerChallenges);
 
 	const workers = workerChallenges.map(async (challenges) => {
-		const worker = new Worker(
-			new URL("./worker.js", import.meta.url),
-			{
-				type: "module",
-			},
-		);
+		const worker = new Worker(new URL("./worker.js", import.meta.url), {
+			type: "module",
+		});
 
 		try {
 			// await worker ready
