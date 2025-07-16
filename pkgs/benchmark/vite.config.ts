@@ -7,6 +7,7 @@ import topLevelAwait from "vite-plugin-top-level-await";
 export default defineConfig({
 	plugins: [reactRouter(), wasm(), topLevelAwait()],
 	worker: {
+		format: "es",
 		plugins: () => [wasm(), topLevelAwait()],
 	},
 });
