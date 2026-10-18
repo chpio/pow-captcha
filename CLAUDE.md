@@ -28,7 +28,15 @@ cargo test --manifest-path pkgs/solver-wasm/Cargo.toml
 pnpm --filter benchmark dev
 pnpm --filter benchmark check   # react-router typegen && tsc
 pnpm --filter benchmark lint
+
+# repo-wide checks (as in CI)
+pnpm exec prettier --check .
+pnpm exec eslint .              # everything but the benchmark, which has its own config
 ```
+
+### CI
+
+`.gitea/workflows/ci.yaml` runs in the `rust-wasm` image of the git/images repo (wasm32 target, wasm-pack, node, pnpm). It caches the pnpm store and wasm-pack's download of the wasm-bindgen CLI (`~/.cache/.wasm-pack`); the cargo checks run in `pkgs/solver-wasm` (`deny.toml` lives there). turbo passes only the variables in `passThroughEnv` (`turbo.json`) to tasks, so wasm-pack finds the toolchain and sccache only through them.
 
 ### WASM package is the crate directory
 
