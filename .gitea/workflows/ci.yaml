@@ -53,7 +53,7 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - id: pnpm-install
         if: ${{ !cancelled() }}
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - if: ${{ !cancelled() && steps.pnpm-install.outcome == 'success' }}
         run: pnpm exec prettier --check .
       - if: ${{ !cancelled() && steps.pnpm-install.outcome == 'success' }}
@@ -81,8 +81,9 @@ jobs:
           RUSTDOCFLAGS: -D warnings
       - run: cargo test --locked
         working-directory: pkgs/solver-wasm
-      # The store only, node_modules is linked from it in seconds. With the frozen lockfile (the
-      # default in CI) pnpm resolves nothing and downloads only the tarballs the store lacks. Before
+      # The store only, node_modules is linked from it in seconds. With the frozen lockfile pnpm
+      # resolves nothing and downloads only the tarballs the store lacks. It's the default when pnpm
+      # detects CI, given explicitly so that a missed detection can't rewrite the lockfile. Before
       # that it verifies the lockfile against its supply-chain policies, which asks the registry for
       # the metadata of every package (~15 s). pnpm keeps the result per lockfile hash in
       # lockfile-verified.jsonl in its cache dir; cached with the store, it spares those requests.
@@ -99,7 +100,7 @@ jobs:
             ${{ steps.pnpm-store.outputs.path }}
             ~/.cache/pnpm/lockfile-verified.jsonl
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install
+      - run: pnpm install --frozen-lockfile
       # wasm-pack downloads the wasm-bindgen CLI of exactly the version in Cargo.lock, the image
       # can't bring it (wasm-opt comes with the image)
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
