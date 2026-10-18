@@ -3,7 +3,16 @@
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**", "tsconfig.tsbuildinfo"]
+			"outputs": ["dist/**", "tsconfig.tsbuildinfo"],
+			// turbo hands the tasks only the variables declared here, wasm-pack needs them to run
+			// cargo (toolchain, sccache) outside of the default locations
+			"passThroughEnv": [
+				"CARGO_*",
+				"RUSTUP_*",
+				"RUSTC_WRAPPER",
+				"SCCACHE_*",
+				"WASM_PACK_*"
+			]
 		}
 	},
 	"globalDependencies": [
