@@ -70,7 +70,7 @@ The JS and Rust test suites share a test vector: nonce `[1, 2]`, target `[3, 4, 
 
 ### Client solving (`solver/`)
 
-`solveChallenges` splits the challenges into chunks according to `navigator.hardwareConcurrency` and starts one module Worker per chunk. Each worker first posts `WORKER_READY`, then receives a `WorkerRequest` and replies with a `WorkerResponse` (types in `shared.ts`). `engine` picks `"js"` or `"wasm"`. If it is unset, the worker tries WASM and falls back to JS. Because the WASM module is imported inside the worker, bundlers must apply WASM/top-level-await plugins to workers too (see `pkgs/benchmark/vite.config.ts`).
+`solveChallenges` splits the challenges into chunks according to `navigator.hardwareConcurrency` and starts one module Worker per chunk. Each worker first posts `WORKER_READY`, then receives a `WorkerRequest` and replies with a `WorkerResponse` (types in `shared.ts`). `engine` picks `"js"` or `"wasm"`. If it is unset, the worker tries WASM and falls back to JS. Because the WASM module is imported inside the worker, bundlers must apply their WASM plugin to workers too (see `pkgs/benchmark/vite.config.ts`).
 
 ## Conventions
 

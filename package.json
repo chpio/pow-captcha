@@ -4,11 +4,11 @@
 		"build": "turbo run build"
 	},
 	"dependencies": {
-		"@eslint/js": "^9.31.0",
-		"eslint": "^9.31.0",
-		"globals": "^16.3.0",
+		"@eslint/js": "^10.0.0",
+		"eslint": "^10.0.0",
+		"globals": "^17.0.0",
 		"prettier": "^3.6.2",
 		"turbo": "^2.11.9",
-		"typescript-eslint": "^8.36.0"
+		"typescript-eslint": "^8.71.2"
 	}
 }
