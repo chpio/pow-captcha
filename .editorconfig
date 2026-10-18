@@ -12,3 +12,7 @@ insert_final_newline = true
 
 [*.rs]
 indent_style = space
+
+[*.yaml]
+indent_style = space
+indent_size = 2
