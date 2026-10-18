@@ -7,17 +7,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm + turbo monorepo for a proof-of-work captcha. Packages live in `pkgs/`:
 
 - `pkgs/pow-captcha` (`@pow-captcha/pow-captcha`): the TypeScript library, exporting the `server`, `solver` and `wire` namespaces from `src/lib.ts`.
-- `pkgs/solver-wasm`: a Rust crate compiled with `wasm-pack` into `pkgs/solver-wasm/dist`, which is published as `@pow-captcha/solver-wasm`.
+- `pkgs/solver-wasm` (`@pow-captcha/solver-wasm`): a Rust crate compiled with `wasm-pack` into `pkgs/solver-wasm/dist`; its `package.json` points `main`/`types` there.
 - `pkgs/benchmark`: a React Router (SSR) + Vite app that times the JS and WASM solvers against each other.
 
 ## Commands
 
 ```sh
-# WASM solver (needs wasm-pack); must run before the rest, see below
-pnpm --dir pkgs/solver-wasm build
-
 pnpm install
-pnpm build                      # turbo run build (pow-captcha tsc, benchmark react-router build)
+pnpm build                      # turbo run build (solver-wasm wasm-pack, pow-captcha tsc, benchmark react-router build); needs wasm-pack
+pnpm --dir pkgs/solver-wasm build   # only the WASM solver
 
 # library tests (jest + @swc/jest)
 pnpm --filter @pow-captcha/pow-captcha test
@@ -32,9 +30,9 @@ pnpm --filter benchmark check   # react-router typegen && tsc
 pnpm --filter benchmark lint
 ```
 
-### WASM build is outside turbo
+### WASM package is the crate directory
 
-`pnpm-workspace.yaml` registers `pkgs/solver-wasm/dist` as the workspace package, not the crate directory, and `pkgs/solver-wasm/package.json` has no name. This means `pnpm build` never runs `wasm-pack`, and `pnpm install` cannot link `@pow-captcha/solver-wasm` until `dist/` exists. After changing `src/lib.rs`, rebuild it explicitly.
+`pkgs/solver-wasm` itself is the workspace package `@pow-captcha/solver-wasm` (`main`/`types` in `dist/`), not the `dist/` that wasm-pack generates (that one has its own `package.json`, but is git-ignored and not in the workspace). So `pnpm install` links it without a build, which Renovate needs to update `pnpm-lock.yaml` in a fresh clone, and turbo's `^build` runs `wasm-pack` before `pow-captcha` builds.
 
 ### Consumers use compiled output
 

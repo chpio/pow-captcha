@@ -1,5 +1,13 @@
 {
+	"name": "@pow-captcha/solver-wasm",
 	"private": true,
+	"type": "module",
+	"main": "dist/solver_wasm.js",
+	"types": "dist/solver_wasm.d.ts",
+	"sideEffects": [
+		"./dist/solver_wasm.js",
+		"./dist/snippets/*"
+	],
 	"scripts": {
 		"build": "wasm-pack build --out-dir 'dist' --scope 'pow-captcha'"
 	}

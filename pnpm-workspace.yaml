@@ -1,6 +1,5 @@
 packages:
   - pkgs/*
-  - pkgs/solver-wasm/dist
 
 onlyBuiltDependencies:
   - '@swc/core'

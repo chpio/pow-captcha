@@ -94,7 +94,7 @@ importers:
     dependencies:
       '@pow-captcha/solver-wasm':
         specifier: workspace:*
-        version: link:../solver-wasm/dist
+        version: link:../solver-wasm
       base64-js:
         specifier: ^1.5.1
         version: 1.5.1
@@ -119,8 +119,6 @@ importers:
         version: 5.8.3
 
   pkgs/solver-wasm: {}
-
-  pkgs/solver-wasm/dist: {}
 
 packages:
 
