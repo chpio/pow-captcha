@@ -2,7 +2,7 @@ import * as powCaptcha from "@pow-captcha/pow-captcha";
 import { useCallback, useState } from "react";
 import type { Route } from "./+types/App";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader() {
 	const challenge = await powCaptcha.server.createChallengesRaw({
 		difficultyBits: 19,
 		challengeCount: 64,
