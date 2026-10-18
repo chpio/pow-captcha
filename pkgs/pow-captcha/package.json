@@ -17,7 +17,7 @@
 	"devDependencies": {
 		"@jest/globals": "^30.5.2",
 		"@swc/jest": "^0.2.39",
-		"@types/node": "^24.19.2",
+		"@types/node": "^26.6.5",
 		"jest": "^30.5.2",
 		"typescript": "^6.0.3"
 	}
