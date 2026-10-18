@@ -10,15 +10,15 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@pow-captcha/solver-wasm": "workspace:*",
 		"base64-js": "^1.5.1",
-		"zod": "^4",
-		"@pow-captcha/solver-wasm": "workspace:*"
+		"zod": "^4.6.7"
 	},
 	"devDependencies": {
-		"@types/node": "^24.0.4",
-		"@swc/jest": "^0.2.38",
-		"jest": "^30.0.3",
-		"typescript": "^5.8.3",
-		"@jest/globals": "^30.0.3"
+		"@jest/globals": "^30.5.2",
+		"@swc/jest": "^0.2.39",
+		"@types/node": "^24.19.2",
+		"jest": "^30.5.2",
+		"typescript": "^6.0.3"
 	}
 }
